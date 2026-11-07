@@ -1,69 +1,805 @@
-/* Ganti warna di sini, semua bagian halaman ikut berubah */
+/* Variabel warna, bayangan, dan radius dipakai bersama agar tema mudah disesuaikan. */
 :root {
-    --utama: #b45309;
-    --teks: #1f2937;
-    --redup: #6b7280;
-    --latar: #fffbf5;
-    --kartu: #ffffff;
-    --garis: #e5e7eb;
+    --color-red: #a9231b;
+    --color-red-dark: #7f271d;
+    --color-gold: #f2c14e;
+    --color-green: #328052;
+    --color-ink: #38291f;
+    --color-muted: #76675d;
+    --color-page: #fff5df;
+    --glass: rgba(255, 250, 239, .72);
+    --glass-strong: rgba(255, 253, 247, .82);
+    --glass-border: rgba(255, 255, 255, .84);
+    --shadow: 0 12px 32px rgba(102, 57, 34, .12);
+    --shadow-hover: 0 16px 34px rgba(102, 57, 34, .17);
+    --radius-panel: 24px;
+    --radius-card: 18px;
 }
 
-* { box-sizing: border-box; }
+/* box-sizing konsisten membuat ukuran elemen lebih mudah dihitung. */
+* {
+    box-sizing: border-box;
+}
 
+html {
+    scroll-behavior: smooth;
+}
+
+/* Gaya dasar halaman dan latar bernuansa warna Warmindo. */
 body {
+    min-width: 320px;
     margin: 0;
-    font-family: system-ui, sans-serif;
-    color: var(--teks);
-    background: var(--latar);
-    line-height: 1.5;
+    color: var(--color-ink);
+    background:
+        radial-gradient(ellipse at 12% 8%, rgba(245, 196, 86, .4), transparent 34rem),
+        radial-gradient(ellipse at 88% 30%, rgba(192, 55, 39, .16), transparent 32rem),
+        radial-gradient(ellipse at 45% 88%, rgba(238, 178, 113, .32), transparent 36rem),
+        var(--color-page);
+    background-attachment: fixed;
+    font-family: 'Nunito', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
 }
 
-.wadah { max-width: 1000px; margin: 0 auto; padding: 0 16px; }
-
-/* Header */
-.atas { background: var(--utama); }
-.atas .wadah { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; padding-top: 14px; padding-bottom: 14px; }
-.merek { color: #fff; font-weight: 700; font-size: 20px; text-decoration: none; }
-.atas nav { display: flex; gap: 16px; }
-.atas nav a { color: #fff; text-decoration: none; }
-
-/* Konten */
-main.wadah { padding-top: 32px; padding-bottom: 48px; }
-section { margin-bottom: 40px; }
-.hero h1 { font-size: 36px; margin: 0 0 8px; }
-.hero p { color: var(--redup); margin: 0 0 4px; }
-.buka { color: #15803d; }
-.tutup { color: #b91c1c; }
-
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
-
-.kartu { background: var(--kartu); border: 1px solid var(--garis); border-radius: 8px; padding: 16px; }
-.kartu h3 { margin: 0 0 6px; font-size: 18px; }
-.kartu p { margin: 0 0 8px; color: var(--redup); }
-.kartu .harga { color: var(--utama); font-weight: 700; margin: 0; }
-.foto {
-    aspect-ratio: 4 / 3;
-    background: var(--garis);
-    border-radius: 6px;
-    margin-bottom: 12px;
-    display: grid;
-    place-items: center;
-    color: var(--redup);
+/* Outline membantu pengguna keyboard melihat elemen yang sedang dipilih. */
+a:focus-visible,
+button:focus-visible {
+    outline: 3px solid var(--color-gold);
+    outline-offset: 3px;
 }
 
-.tombol {
-    display: inline-block;
-    background: var(--utama);
-    color: #fff;
-    border-radius: 6px;
-    padding: 10px 16px;
+/* Lebar konten dibatasi dan dipusatkan untuk layar besar. */
+.wadah {
+    width: min(100% - 32px, 1120px);
+    margin-inline: auto;
+}
+
+/* Navbar sticky tetap terlihat saat pengguna menggulir halaman. */
+.atas {
+    position: sticky;
+    z-index: 20;
+    top: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, .45);
+    background: rgba(143, 29, 25, .88);
+    box-shadow: 0 8px 26px rgba(94, 37, 24, .16);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+
+.atas .wadah {
+    display: flex;
+    min-height: 68px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 24px;
+    padding-block: 10px;
+}
+
+.merek {
+    flex-shrink: 0;
+    color: #fffaf0;
+    font-size: 22px;
+    font-weight: 800;
     text-decoration: none;
 }
-.tombol:hover { opacity: .9; }
 
-/* Footer */
-.bawah { border-top: 1px solid var(--garis); padding: 16px 0; color: var(--redup); font-size: 14px; }
+.atas nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+}
 
+.atas nav a {
+    padding: 7px 10px;
+    border-radius: 9px;
+    color: #fffaf0;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color .18s ease;
+}
+
+.atas nav a:hover {
+    background: rgba(255, 255, 255, .16);
+}
+
+/* Jarak utama antarkonten dan panel menggunakan gaya glassmorphism. */
+main.wadah {
+    padding-block: 38px 52px;
+}
+
+section {
+    margin-bottom: 34px;
+}
+
+section[id] {
+    scroll-margin-top: 88px;
+}
+
+.hero,
+main.wadah > section:not(.hero),
+.kartu,
+.peta {
+    border: 1px solid var(--glass-border);
+    background: var(--glass);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+/* Hero dibuat lebih menonjol sebagai area pengenalan usaha. */
+.hero {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(28px, 5vw, 52px);
+    border-radius: var(--radius-panel);
+    background:
+        radial-gradient(ellipse at 92% 10%, rgba(242, 193, 78, .23), transparent 18rem),
+        var(--glass);
+}
+
+.hero h1,
+h1,
+h2,
+h3,
+.merek {
+    letter-spacing: 0;
+}
+
+.hero h1 {
+    position: relative;
+    z-index: 1;
+    max-width: 13ch;
+    margin: 0 0 12px;
+    color: var(--color-red-dark);
+    font-size: clamp(38px, 6vw, 58px);
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+.hero p {
+    position: relative;
+    z-index: 1;
+    max-width: 52ch;
+    margin: 0 0 6px;
+    color: var(--color-muted);
+    font-size: 17px;
+}
+
+.hero #status-buka {
+    display: inline-block;
+    padding: 3px 11px;
+    border-radius: 999px;
+    background: rgba(231, 242, 222, .88);
+    color: #37613b;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.hero #status-buka.tutup {
+    background: rgba(250, 225, 214, .9);
+    color: #922b20;
+}
+
+/* Simbol dekoratif pada hero tidak mengganggu pembacaan konten. */
+.mangkuk {
+    position: absolute;
+    top: 24px;
+    right: clamp(18px, 5vw, 42px);
+    z-index: 0;
+    font-size: clamp(64px, 9vw, 96px);
+    line-height: 1;
+    opacity: .8;
+    transform: rotate(-6deg);
+    user-select: none;
+}
+
+.mangkuk .uap {
+    display: none;
+}
+
+.aksi-hero {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 22px 0 16px;
+}
+
+/* Tombol utama, tombol hover, dan tombol WhatsApp memakai warna tema usaha. */
+.tombol {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 17px;
+    border: 1px solid rgba(255, 255, 255, .6);
+    border-radius: 10px;
+    background: var(--color-red);
+    box-shadow: 0 6px 16px rgba(131, 43, 30, .22);
+    color: #fff;
+    font-weight: 800;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+
+.tombol:hover {
+    background: #872018;
+    box-shadow: 0 8px 20px rgba(131, 43, 30, .26);
+    transform: translateY(-1px);
+}
+
+.tombol-wa,
+.tombol-pesan,
+.wa-melayang {
+    background: var(--color-green);
+}
+
+.tombol-wa:hover,
+.tombol-pesan:hover,
+.wa-melayang:hover {
+    background: #276a43;
+}
+
+/* Foto usaha diberi batas dan sudut melengkung agar serasi dengan panel. */
+.hero-gambar {
+    display: block;
+    width: 100%;
+    max-height: 340px;
+    margin-top: 18px;
+    border: 1px solid rgba(255, 255, 255, .8);
+    border-radius: 16px;
+    object-fit: cover;
+    box-shadow: 0 8px 20px rgba(102, 57, 34, .12);
+}
+
+main.wadah > section:not(.hero) {
+    margin-bottom: 24px;
+    padding: clamp(22px, 4vw, 32px);
+    border-radius: var(--radius-panel);
+}
+
+/* Ikon judul dibuat dengan pseudo-element agar tidak menambah markup berulang. */
+section h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 18px;
+    padding-bottom: 11px;
+    border-bottom: 1px solid rgba(169, 35, 27, .16);
+    color: var(--color-red-dark);
+    font-size: clamp(23px, 3vw, 28px);
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+#tentang h2::before { content: "\2726"; }
+#keunggulan h2::before { content: "\2727"; }
+#produk h2::before { content: "\25C8"; }
+#testimoni h2::before { content: "\275E"; }
+#kontak h2::before { content: "\2316"; }
+#pemesanan h2::before { content: "\2709"; }
+
+section h2::before {
+    display: inline-grid;
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    place-items: center;
+    border-radius: 12px;
+    background: rgba(242, 193, 78, .3);
+    color: var(--color-red-dark);
+    font-size: 19px;
+}
+
+/* Grid kartu menyesuaikan jumlah kolom dengan lebar yang tersedia. */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: 18px;
+}
+
+/* Kartu dipakai bersama oleh keunggulan, menu, dan testimoni. */
+.kartu {
+    min-width: 0;
+    padding: 19px;
+    border-radius: var(--radius-card);
+    transition: box-shadow .18s ease, transform .18s ease;
+}
+
+.kartu:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-3px);
+}
+
+.kartu h3 {
+    margin: 0 0 6px;
+    color: var(--color-ink);
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.kartu p {
+    margin: 0 0 8px;
+    color: var(--color-muted);
+}
+
+.kartu .harga {
+    margin: 0;
+    color: var(--color-red);
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.kartu.keunggulan {
+    background: rgba(255, 253, 247, .72);
+    text-align: center;
+}
+
+.keunggulan .ikon {
+    margin-bottom: 8px;
+    font-size: 34px;
+}
+
+.testimoni {
+    margin: 0;
+}
+
+.testimoni blockquote {
+    margin: 0 0 12px;
+    font-size: 16px;
+    font-style: italic;
+}
+
+.testimoni figcaption {
+    color: var(--color-muted);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* Produk dikelompokkan menjadi kartu visual dan tabel daftar harga. */
+#produk {
+    background: rgba(255, 248, 229, .78);
+}
+
+#daftar-produk {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.kelompok-menu {
+    min-width: 0;
+    margin: 0;
+}
+
+.judul-kategori {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 14px;
+    color: var(--color-red-dark);
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.judul-kategori::before {
+    width: 9px;
+    height: 24px;
+    border-radius: 999px;
+    background: var(--color-gold);
+    content: "";
+}
+
+.daftar-kategori {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+}
+
+#daftar-produk .kartu {
+    display: flex;
+    flex-direction: column;
+    padding: 14px;
+    background: var(--glass-strong);
+}
+
+/* Area foto mempertahankan rasio dan menampung foto maupun simbol fallback. */
+#daftar-produk .foto {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    min-height: 170px;
+    aspect-ratio: 16 / 10;
+    margin-bottom: 16px;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, .8);
+    border-radius: 15px;
+    background:
+        radial-gradient(circle at 50% 40%, rgba(255, 255, 255, .88), transparent 46%),
+        linear-gradient(135deg, rgba(246, 216, 145, .82), rgba(233, 170, 132, .48));
+    color: var(--color-red-dark);
+}
+
+.simbol-produk {
+    display: grid;
+    width: 72px;
+    height: 72px;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, .82);
+    border-radius: 24px;
+    background: rgba(255, 250, 237, .78);
+    box-shadow: 0 9px 22px rgba(102, 57, 34, .14);
+    font-size: 38px;
+    transition: transform .2s ease;
+}
+
+#daftar-produk .kartu:hover .simbol-produk {
+    transform: translateY(-3px) rotate(-4deg);
+}
+
+#daftar-produk .kartu h3 {
+    margin-bottom: 6px;
+    font-size: 20px;
+}
+
+#daftar-produk .kartu > p:not(.harga) {
+    flex: 1;
+    margin-bottom: 14px;
+    line-height: 1.6;
+}
+
+#daftar-produk .kartu .harga {
+    color: var(--color-red);
+}
+
+/* Tabel harga tetap dapat digulir horizontal di layar yang sempit. */
+.subjudul-menu {
+    margin: 30px 0 12px;
+    color: var(--color-red-dark);
+    font-size: 20px;
+}
+
+.tabel-gulir {
+    overflow-x: auto;
+    border: 1px solid rgba(169, 35, 27, .14);
+    border-radius: 12px;
+    background: var(--glass-strong);
+}
+
+.tabel-menu {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.tabel-menu caption {
+    padding: 12px;
+    color: var(--color-muted);
+    font-weight: 700;
+    text-align: left;
+}
+
+.tabel-menu th,
+.tabel-menu td {
+    padding: 11px 14px;
+    border-top: 1px solid rgba(169, 35, 27, .12);
+}
+
+.tabel-menu thead {
+    background: rgba(242, 193, 78, .28);
+}
+
+.tabel-menu tbody th[colspan] {
+    background: rgba(169, 35, 27, .08);
+    color: var(--color-red-dark);
+}
+
+/* Form dua kolom di desktop dan berubah satu kolom pada perangkat kecil. */
+#pemesanan form {
+    display: grid;
+    max-width: 680px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+/* Field form menampilkan label, input, dan pesan validasi secara berurutan. */
+.field-form {
+    display: grid;
+    align-content: start;
+    gap: 6px;
+}
+
+.field-form label {
+    color: var(--color-ink);
+    font-weight: 800;
+}
+
+.field-form input,
+.field-form select {
+    width: 100%;
+    min-height: 46px;
+    padding: 10px 12px;
+    border: 1px solid rgba(118, 103, 93, .38);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, .86);
+    color: var(--color-ink);
+    font: inherit;
+}
+
+.field-form input:focus,
+.field-form select:focus {
+    border-color: var(--color-red);
+    outline: 3px solid rgba(242, 193, 78, .45);
+    outline-offset: 1px;
+}
+
+.field-form [aria-invalid="true"] {
+    border-color: var(--color-red);
+}
+
+.error-field {
+    min-height: 1.4em;
+    color: var(--color-red-dark);
+    font-weight: 700;
+}
+
+#form-pemesanan > .tombol,
+.status-pemesanan {
+    grid-column: 1 / -1;
+    justify-self: start;
+}
+
+.status-pemesanan {
+    margin: 0;
+    color: var(--color-green);
+    font-weight: 800;
+}
+
+/* Tombol pemesanan produk dan ikon kecil di dalam tombol. */
+.tombol-pesan {
+    display: flex;
+    gap: 7px;
+    margin-top: 14px;
+}
+
+.simbol-pesan {
+    display: inline-grid;
+    width: 21px;
+    height: 21px;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .2);
+    font-size: 18px;
+    line-height: 1;
+}
+
+.foto-img {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Tautan sosial, peta, dan WhatsApp sebagai bagian informasi kontak. */
+.sosmed {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 16px 0;
+}
+
+.sosmed a {
+    padding: 7px 13px;
+    border: 1px solid rgba(255, 255, 255, .78);
+    border-radius: 10px;
+    background: rgba(255, 250, 239, .65);
+    box-shadow: 0 5px 16px rgba(102, 57, 34, .1);
+    color: var(--color-red-dark);
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color .18s ease, color .18s ease;
+}
+
+.sosmed a:hover {
+    background: var(--color-red);
+    color: #fff;
+}
+
+.peta {
+    overflow: hidden;
+    margin-top: 16px;
+    border-radius: 16px;
+}
+
+.peta iframe {
+    display: block;
+    width: 100%;
+    height: 320px;
+    border: 0;
+}
+
+.wa-melayang {
+    position: fixed;
+    z-index: 10;
+    right: 20px;
+    bottom: 20px;
+    padding: 12px 18px;
+    border: 1px solid rgba(255, 255, 255, .72);
+    border-radius: 12px;
+    box-shadow: 0 10px 24px rgba(45, 80, 61, .22);
+    color: #fff;
+    font-weight: 800;
+    text-decoration: none;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: background-color .18s ease, transform .18s ease;
+}
+
+.wa-melayang:hover {
+    transform: translateY(-2px);
+}
+
+.bawah {
+    padding: 20px 0;
+    border-top: 1px solid rgba(255, 255, 255, .45);
+    background: rgba(143, 29, 25, .86);
+    color: #fff5df;
+    font-size: 14px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+/* Penyesuaian navigasi, kartu, form, dan peta pada layar ponsel. */
 @media (max-width: 600px) {
-    .hero h1 { font-size: 28px; }
+    .atas {
+        position: relative;
+    }
+
+    .atas .wadah {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .atas nav {
+        gap: 3px;
+        font-size: 14px;
+    }
+
+    .atas nav a {
+        padding: 6px 8px;
+    }
+
+    main.wadah {
+        padding-block: 24px 36px;
+    }
+
+    .hero {
+        padding: 28px 20px;
+        border-radius: 20px;
+    }
+
+    .hero h1 {
+        max-width: 9ch;
+        padding-right: 28px;
+        font-size: 36px;
+    }
+
+    .hero p {
+        max-width: 34ch;
+        font-size: 16px;
+    }
+
+    .mangkuk {
+        top: 18px;
+        right: 12px;
+        opacity: .32;
+    }
+
+    main.wadah > section:not(.hero) {
+        padding: 22px 18px;
+        border-radius: 18px;
+    }
+
+    #daftar-produk { gap: 22px; }
+
+    .daftar-kategori {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+        gap: 14px;
+    }
+
+    .judul-kategori { font-size: 19px; }
+
+    #daftar-produk .kartu {
+        padding: 12px;
+    }
+
+    #daftar-produk .foto {
+        min-height: 140px;
+        margin-bottom: 13px;
+    }
+
+    .simbol-produk {
+        width: 62px;
+        height: 62px;
+        border-radius: 20px;
+        font-size: 32px;
+    }
+
+    .peta iframe {
+        height: 260px;
+    }
+
+    #pemesanan form {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    #form-pemesanan > .tombol,
+    .status-pemesanan {
+        grid-column: auto;
+    }
+
+    .wa-melayang {
+        right: 14px;
+        bottom: 14px;
+    }
+}
+
+/* Hormati pengaturan aksesibilitas pengguna yang mengurangi animasi. */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+    }
+}
+
+/* Pada desktop foto hero ditempatkan di samping teks. */
+@media (min-width: 760px) {
+    .hero {
+        min-height: 450px;
+        padding-right: min(34%, 350px);
+    }
+
+    .hero-gambar {
+        position: absolute;
+        top: 50%;
+        right: clamp(24px, 5vw, 56px);
+        width: min(27%, 280px);
+        max-height: 390px;
+        margin: 0;
+        border: 8px solid rgba(255, 250, 239, .86);
+        border-radius: 18px;
+        object-fit: contain;
+        transform: translateY(-50%);
+    }
+
+    .mangkuk {
+        display: none;
+    }
+}
+
+/* Pada tablet dan ponsel foto hero kembali ke alur konten normal. */
+@media (max-width: 759px) {
+    .hero-gambar {
+        max-height: 420px;
+        margin-top: 20px;
+        border: 6px solid rgba(255, 250, 239, .86);
+        object-fit: contain;
+    }
+
+    .mangkuk {
+        display: none;
+    }
 }

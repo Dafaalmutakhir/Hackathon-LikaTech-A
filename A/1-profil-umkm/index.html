@@ -1,55 +1,196 @@
 <!doctype html>
 <html lang="id">
 <head>
+    <!-- Metadata membantu browser mengenali encoding, ukuran layar, dan informasi halaman. -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Nama Usaha</title>
+    <title>Warmindo Lika</title>
+    <meta name="description" content="Warmindo Lika, warmindo di Yogyakarta. Lihat menu, harga, dan pesan langsung lewat WhatsApp.">
+    <meta property="og:title" content="Warmindo Lika">
+    <meta property="og:description" content="Lihat menu, harga, dan pesan langsung lewat WhatsApp.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%9C%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Header berisi identitas usaha dan navigasi ke bagian-bagian halaman. -->
     <header class="atas">
         <div class="wadah">
             <!-- TODO: ganti dengan nama UMKM yang kalian pilih -->
-            <a href="#" class="merek">Nama Usaha</a>
+            <a href="#" class="merek">Warmindo Lika</a>
             <nav>
                 <a href="#tentang">Tentang</a>
+                <a href="#keunggulan">Keunggulan</a>
                 <a href="#produk">Produk</a>
+                <a href="#testimoni">Testimoni</a>
+                <a href="#pemesanan">Pemesanan</a>
                 <a href="#kontak">Kontak</a>
             </nav>
         </div>
     </header>
 
+    <!-- Konten utama profil UMKM dibagi ke dalam section semantik. -->
     <main class="wadah">
+        <!-- Hero menjadi bagian pembuka, menampilkan nama, slogan, status, dan ajakan. -->
         <section class="hero">
-            <h1>Nama Usaha</h1>
-            <p>Slogan singkat usaha, misalnya "Keripik singkong renyah sejak 2010".</p>
+            <div class="mangkuk" aria-hidden="true"><span class="uap"></span><span class="uap"></span><span class="uap"></span>🍜</div>
+            <h1>Warmindo Lika</h1>
+            <p>Anda Kenyang, Kami PUAS!</p>
             <p>Status: <strong id="status-buka">-</strong></p>
+            <div class="aksi-hero">
+                <a class="tombol" href="#produk">Lihat Produk</a>
+                <a class="tombol tombol-wa" id="tombol-pesan-hero" href="https://wa.me/6281234567890" target="_blank" rel="noopener">Pesan Sekarang</a>
+            </div>
+            <img class="hero-gambar" id="hero-gambar" src="foto/warmindo-lika.png" alt="Ilustrasi Warmindo Lika dengan koki sedang memasak mi">
         </section>
 
+        <!-- Tentang dan keunggulan menjelaskan usaha serta alasan pelanggan memilihnya. -->
         <section id="tentang">
             <h2>Tentang Kami</h2>
-            <p>Cerita singkat usaha: siapa pemiliknya, kapan mulai, apa yang membuat produknya berbeda.</p>
+            <p>Di Warmindo Lika, semangkuk mi sederhana jadi lebih istimewa. Kami meracik menu hangat dengan rasa akrab, harga bersahabat, dan pilihan yang pas untuk menemani waktu istirahat, belajar, atau berkumpul. Datang untuk makan, pulang dengan kenyang dan puas.</p>
         </section>
 
+        <section id="keunggulan">
+            <h2>Kenapa Memilih Kami</h2>
+            <div class="grid">
+                <article class="kartu keunggulan">
+                    <div class="ikon">🍜</div>
+                    <h3>Pilihan Mi Lengkap</h3>
+                    <p>Mi goreng, mi kuah, dan mi soto. Tambah telur dan sayur sesuai selera.</p>
+                </article>
+                <article class="kartu keunggulan">
+                    <div class="ikon">🔥</div>
+                    <h3>Dimasak Saat Dipesan</h3>
+                    <p>Datang ke meja masih panas, tidak dihangatkan ulang.</p>
+                </article>
+                <article class="kartu keunggulan">
+                    <div class="ikon">💰</div>
+                    <h3>Harga Anak Kos</h3>
+                    <p>Kenyang tanpa bikin akhir bulan jadi berat.</p>
+                </article>
+                <article class="kartu keunggulan">
+                    <div class="ikon">🛵</div>
+                    <h3>Bisa Diantar</h3>
+                    <p>Pesan lewat WhatsApp, kami antar ke sekitar Yogyakarta.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Daftar produk dirender dari data JavaScript agar kartu dan tabel memakai data yang sama. -->
         <section id="produk">
             <h2>Produk</h2>
             <!-- Kartu produk diisi oleh script.js -->
             <div id="daftar-produk" class="grid"></div>
+            <h3 class="subjudul-menu">Daftar Harga</h3>
+            <div class="tabel-gulir">
+                <!-- Tabel harga memakai struktur header dan body untuk aksesibilitas dan uji HTML. -->
+                <table class="tabel-menu">
+                    <caption>Daftar menu dan harga Warmindo Lika</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Menu</th>
+                            <th scope="col">Kategori</th>
+                            <th scope="col">Harga</th>
+                        </tr>
+                    </thead>
+                    <tbody id="isi-tabel-menu"></tbody>
+                </table>
+            </div>
+            <!-- Template ini disalin oleh JavaScript untuk setiap foto produk. -->
+            <template id="template-foto-menu">
+                <img class="foto-img" loading="lazy" alt="">
+            </template>
         </section>
 
+        <!-- Formulir memakai POST sesuai skenario; pemrosesan yang ada saat ini hanya simulasi browser. -->
+        <section id="pemesanan">
+            <h2>Form Pemesanan</h2>
+            <p>Isi data berikut untuk mencoba formulir pemesanan Warmindo Lika.</p>
+            <form id="form-pemesanan" action="#" method="post" novalidate>
+                <!-- Setiap label terhubung ke input melalui atribut for dan id. -->
+                <div class="field-form">
+                    <label for="nama-pemesan">Nama pemesan</label>
+                    <input id="nama-pemesan" name="nama" type="text" autocomplete="name" required aria-describedby="error-nama">
+                    <small class="error-field" id="error-nama" aria-live="polite"></small>
+                </div>
+                <div class="field-form">
+                    <label for="telepon-pemesan">Nomor WhatsApp</label>
+                    <input id="telepon-pemesan" name="telepon" type="tel" autocomplete="tel" required aria-describedby="error-telepon">
+                    <small class="error-field" id="error-telepon" aria-live="polite"></small>
+                </div>
+                <div class="field-form">
+                    <label for="pilihan-menu">Pilih menu</label>
+                    <select id="pilihan-menu" name="menu" required aria-describedby="error-menu">
+                        <option value="">Pilih menu</option>
+                    </select>
+                    <small class="error-field" id="error-menu" aria-live="polite"></small>
+                </div>
+                <div class="field-form">
+                    <label for="jumlah-menu">Jumlah pesanan</label>
+                    <input id="jumlah-menu" name="jumlah" type="number" min="1" max="20" step="1" value="1" required aria-describedby="error-jumlah">
+                    <small class="error-field" id="error-jumlah" aria-live="polite"></small>
+                </div>
+                <button class="tombol" type="submit">Kirim Pesanan</button>
+                <p id="status-pemesanan" class="status-pemesanan" role="status" aria-live="polite"></p>
+            </form>
+        </section>
+
+        <!-- Testimoni memberi gambaran pengalaman pelanggan terhadap usaha. -->
+        <section id="testimoni">
+            <h2>Kata Pelanggan</h2>
+            <div class="grid">
+                <figure class="kartu testimoni">
+                    <blockquote>"Kuahnya gurih, telurnya pas setengah matang. Pasti pesan lagi!"</blockquote>
+                    <figcaption>Nama Pelanggan 1, Yogyakarta</figcaption>
+                </figure>
+                <figure class="kartu testimoni">
+                    <blockquote>"Harganya cocok untuk mahasiswa dan porsinya mengenyangkan."</blockquote>
+                    <figcaption>Nama Pelanggan 2, Sleman</figcaption>
+                </figure>
+                <figure class="kartu testimoni">
+                    <blockquote>"Tempat nongkrong favorit sambil ngerjain tugas. Pesanan cepat datang."</blockquote>
+                    <figcaption>Nama Pelanggan 3, Bantul</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- Informasi kontak menyediakan tautan komunikasi, media sosial, dan lokasi peta. -->
         <section id="kontak">
             <h2>Lokasi dan Kontak</h2>
             <p>Alamat: Jl. Contoh No. 1, Yogyakarta</p>
             <p>Jam buka: setiap hari, 08.00 sampai 17.00</p>
             <!-- TODO: ganti nomor WhatsApp (format 62..., tanpa tanda +) -->
             <a class="tombol" href="https://wa.me/6281234567890" target="_blank" rel="noopener">Hubungi lewat WhatsApp</a>
+
+            <div class="sosmed">
+                <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
+                <a href="https://tiktok.com/" target="_blank" rel="noopener">TikTok</a>
+                <a href="https://shopee.co.id/" target="_blank" rel="noopener">Shopee</a>
+            </div>
+
+            <div class="peta">
+                <iframe
+                    title="Peta lokasi usaha"
+                    src="https://www.google.com/maps?q=Yogyakarta&output=embed"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    allowfullscreen></iframe>
+            </div>
         </section>
     </main>
 
+    <!-- Footer menutup halaman dengan identitas kegiatan dan kelompok. -->
     <footer class="bawah">
         <div class="wadah">Mini Hackathon Teknologi Web · Nama Kelompok</div>
     </footer>
 
+    <!-- Tombol tetap di sudut layar agar WhatsApp mudah dijangkau. -->
+    <a class="wa-melayang" id="wa-melayang" href="https://wa.me/6281234567890" target="_blank" rel="noopener" aria-label="Chat WhatsApp">WhatsApp</a>
+
+    <!-- JavaScript mengisi menu dan mengatur validasi serta interaksi formulir. -->
     <script src="script.js"></script>
 </body>
 </html>
