@@ -109,7 +109,7 @@
         <section id="pemesanan">
             <h2>Form Pemesanan</h2>
             <p>Isi data berikut untuk mencoba formulir pemesanan Warmindo Lika.</p>
-            <form id="form-pemesanan" action="#" method="post" novalidate>
+            <form id="form-pemesanan" action="#" method="POST">
                 <!-- Setiap label terhubung ke input melalui atribut for dan id. -->
                 <div class="field-form">
                     <label for="nama-pemesan">Nama pemesan</label>
@@ -121,18 +121,8 @@
                     <input id="telepon-pemesan" name="telepon" type="tel" autocomplete="tel" required aria-describedby="error-telepon">
                     <small class="error-field" id="error-telepon" aria-live="polite"></small>
                 </div>
-                <div class="field-form">
-                    <label for="pilihan-menu">Pilih menu</label>
-                    <select id="pilihan-menu" name="menu" required aria-describedby="error-menu">
-                        <option value="">Pilih menu</option>
-                    </select>
-                    <small class="error-field" id="error-menu" aria-live="polite"></small>
-                </div>
-                <div class="field-form">
-                    <label for="jumlah-menu">Jumlah pesanan</label>
-                    <input id="jumlah-menu" name="jumlah" type="number" min="1" max="20" step="1" value="1" required aria-describedby="error-jumlah">
-                    <small class="error-field" id="error-jumlah" aria-live="polite"></small>
-                </div>
+                <div id="daftar-item-pesanan" class="daftar-item-pesanan" aria-live="polite"></div>
+                <button class="tombol tombol-tambah-item" id="tambah-item-pesanan" type="button">Tambah menu</button>
                 <button class="tombol" type="submit">Kirim Pesanan</button>
                 <p id="status-pemesanan" class="status-pemesanan" role="status" aria-live="polite"></p>
             </form>
